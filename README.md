@@ -25,12 +25,12 @@ cd Ensemble-method-based-on-reinforcement-learning
 ```
 python train.py
 ```
-## Current problems(10/16/2019)
+## Current problems(10/19/2019)
 1.A lot of hyperparameters can't be adjusted
 
-2.Validation script
+2.demo.py(I plan to write a script for generating a video for show) 
 
-3.It only supportted classification and numpy input
+3.It only supportted classification and numpy input(ImageDataGenerator will be used)
 
 4.No available checkpoint
 ## Contact me
