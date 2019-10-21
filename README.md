@@ -33,6 +33,8 @@ python train.py
 3.It only supportted classification and numpy input(ImageDataGenerator will be used)
 
 4.No available checkpoint
+
+5.OpenAI gym API(gym.openai.com) it will be compatiable with gym API
 ## Contact me
 ```
 E-mail:xiahandong6250@bupt.edu.cn
