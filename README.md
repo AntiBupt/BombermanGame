@@ -21,7 +21,7 @@ pip install keras==2.2.4
 git clone https://github.com/AntiBupt/Ensemble-method-based-on-reinforcement-learning.git
 cd Ensemble-method-based-on-reinforcement-learning
 ```
-**Step 3. Train the model with default configuration(cifar10+cnn+dense+vgg16).**
+**Step 3. Train the model with default configuration.**
 ```
 python train.py
 ```
