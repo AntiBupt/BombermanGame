@@ -74,18 +74,10 @@ if __name__ == '__main__':
         agent.bhv_clone(pre_set,pre_label,PRE_EPOCH)
 
     action_list = ['up', 'down', 'left', 'right', 'boom']
-    matrix = np.asarray([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
-                         [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
-                         [1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1], [1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1],
-                         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-                         [1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-                         [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-                         [1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-                         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])
     vectorization = {'up': 0, 'down': 1, 'left': 2, 'right': 3, 'boom': 4}
 
     for i in range(EPISODES):
-        environment=Environment(matrix[:,:])
+        environment=Environment()
         print("episodes "+str(i)+" start:")
         trajectory,actions,reward,_=game(environment,agent)
         print("reward on this episode: "+str(reward))
