@@ -3,7 +3,7 @@ from  Environment import *
 from Agent import *
 from pretrain import  *
 
-EPISODES=1*10000
+EPISODES=40*10000
 PRE_TRAIN=True
 PRE_EPOCH=2
 
