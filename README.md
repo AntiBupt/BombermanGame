@@ -34,10 +34,12 @@ python train.py
 
 4.No available checkpoint
 
+5.OpenAI gym API(gym.openai.com) it will be compatiable with gym API
+
 ## problems(12/16/2019)
 pre_train isn't available now because of the change of input dimension, this will be updated later.
 
-5.OpenAI gym API(gym.openai.com) it will be compatiable with gym API
+
 ## Contact me
 ```
 E-mail:xiahandong6250@bupt.edu.cn
