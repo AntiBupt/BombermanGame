@@ -22,8 +22,8 @@ def equal(x, y):
 class Environment():
 
     def __init__(self):
-        # 初始化，wall为1，空地为0
-        self.matrix = np.array([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+
+        matrix = np.array([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
                              [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
                              [1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1], [1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1],
                              [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -31,9 +31,10 @@ class Environment():
                              [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
                              [1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
                              [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])
+        # 初始化，传入初始地图，wall为1，空地为0
+        assert matrix.shape==(12,12)
         print("initializing environment")
-
-
+        self.matrix=matrix
         # 初始化bomber和monster位置
         self.bomber = self.init_position('bomber')
         self.monster=[self.init_position('monster') for i in range(3)]
@@ -46,7 +47,8 @@ class Environment():
 
         self.is_bomb=False
 
-        # 初始化轨迹为空
+        # 初始化经验回放
+        self.position_input=[]
         self.train_trajectory=[]
         self.actions=[]
         self.demo_trajectory=[]
@@ -151,6 +153,7 @@ class Environment():
         # 更新trajectory
         # print("train update with matrix:")
         # print(self.matrix)
+        self.position_input.append(np.asarray([self.bomber,self.monster[0],self.monster[1],self.monster[2]]).reshape((-1,1)))
         self.train_trajectory.append(self.matrix.copy())
         self.actions.append(action)
 
@@ -172,7 +175,7 @@ class Environment():
         return result
 
     def get_state(self):
-        return self.matrix
+        return np.asarray([self.bomber,self.monster[0],self.monster[1],self.monster[2]]).reshape(-1,8)
 
     def update_state(self):
         result = 'wait'
@@ -190,7 +193,8 @@ class Environment():
         return result
 
     def get_record(self):
-        return self.train_trajectory,self.actions,len(self.monster),self.is_bomb
+        position_input=np.reshape(np.asarray(self.position_input),(-1,8))
+        return position_input,self.actions,len(self.monster),self.is_bomb,
 
     def get_demo_traj(self):
         return self.demo_trajectory
