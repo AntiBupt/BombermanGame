@@ -3,9 +3,13 @@ from  Environment import *
 from Agent import *
 from pretrain import  *
 
-EPISODES=40*10000
-PRE_TRAIN=True
-PRE_EPOCH=2
+EPISODES=30*10000
+PRE_TRAIN=False
+PRE_EPOCH=4
+
+def sample(distribution):
+    return np.random.choice(distribution.shape[0],p=distribution)
+
 
 def game(environment,agent):
     action_list = ['up', 'down', 'left', 'right', 'boom']
@@ -15,7 +19,7 @@ def game(environment,agent):
 
         # bomber走两步
         state = environment.get_state()
-        action = agent.action(state.reshape((1,12,12,1)))
+        action = sample(agent.action(state))
         result = environment.action(action_list[action])
 
         # print(environment.bomber)
@@ -31,7 +35,7 @@ def game(environment,agent):
             return trajectory, actions, reward_func(num, len(trajectory), is_bomb),environment.get_demo_traj()
 
         state = environment.get_state()
-        action = agent.action(state.reshape(1,12,12,1))
+        action = sample(agent.action(state))
         result = environment.action(action_list[action])
 
         # print(environment.bomber)
@@ -68,7 +72,7 @@ def game(environment,agent):
 
 if __name__ == '__main__':
     agent = Agent()
-
+    list_reward=[]
     if PRE_TRAIN:
         pre_set,pre_label=expert()
         agent.bhv_clone(pre_set,pre_label,PRE_EPOCH)
@@ -81,11 +85,13 @@ if __name__ == '__main__':
         print("episodes "+str(i)+" start:")
         trajectory,actions,reward,_=game(environment,agent)
         print("reward on this episode: "+str(reward))
+        list_reward.append(reward)
         actions=list(map(lambda x:vectorization.get(x),actions))
         print(environment.bomber)
+        print(environment.monster)
         agent.train(trajectory,actions,reward)
     agent.save()
-
+    np.savetxt("log.txt",np.asarray(list_reward))
     # matrix = np.asarray([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
     #                    [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
     #                    [1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1], [1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1],
