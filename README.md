@@ -25,7 +25,7 @@ cd Ensemble-method-based-on-reinforcement-learning
 ```
 python train.py
 ```
-## Current problems(10/19/2019)
+## problems(10/19/2019)
 1.A lot of hyperparameters can't be adjusted
 
 2.demo.py(I plan to write a script for generating a video for show) 
@@ -33,6 +33,9 @@ python train.py
 3.It only supportted classification and numpy input(ImageDataGenerator will be used)
 
 4.No available checkpoint
+
+## problems(12/16/2019)
+pre_train isn't available now because of the change of input dimension, this will be updated later.
 
 5.OpenAI gym API(gym.openai.com) it will be compatiable with gym API
 ## Contact me
